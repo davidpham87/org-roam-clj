@@ -1,0 +1,30 @@
+site_name: Org-roam-clj
+repo_url: https://github.com/davidpham87/org-roam-clj
+edit_uri: edit/master/doc
+repo_name: github
+docs_dir: doc
+site_dir: docs
+
+theme:
+  name: material
+  logo: images/logo.png
+  palette:
+    primary: red
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.details
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML
+
+plugins:
+  - search # necessary for search to work
+  - awesome-pages

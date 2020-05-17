@@ -1,0 +1,13 @@
+{:path ["src"]
+ :deps
+ {orgmode {:git/url "https://github.com/davidpham87/orgmode"
+           :sha "142930a4be0defbdb8b5ebe35c089c7e62c87e7d"}
+  ;; materiala {:git/url "https://github.com/davidpham87/materiala/"
+  ;;            :sha "b4f85c96b1bf9b96b47714e751b6bff6196533bb"}
+  materiala {:local/root "/home/david/Documents/materiala"}
+
+  honeysql {:mvn/version "0.9.10"}
+  org.xerial/sqlite-jdbc {:mvn/version "3.30.1"}
+  org.clojure/core.async {:mvn/version "1.2.603"}
+  org.clojure/tools.cli {:mvn/version "1.0.194"}
+  seancorfield/next.jdbc {:mvn/version "1.0.424" :exclusions [org.clojure/clojure]}}}
