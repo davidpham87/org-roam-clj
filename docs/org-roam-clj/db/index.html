@@ -294,6 +294,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#connection" class="md-nav__link">
+    connection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#home-directory" class="md-nav__link">
     home-directory
   </a>
@@ -338,6 +345,90 @@
         <li class="md-nav__item">
   <a href="#backlinks" class="md-nav__link">
     backlinks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    tags
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-files-clj" class="md-nav__link">
+    create-files-clj
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insert-file-hash-query" class="md-nav__link">
+    insert-file-hash-query
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-file-hash-query" class="md-nav__link">
+    update-file-hash-query
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-query" class="md-nav__link">
+    file-query
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-query" class="md-nav__link">
+    files-query
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-exists" class="md-nav__link">
+    file-exists?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#store-file-hash-query" class="md-nav__link">
+    store-file-hash-query
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#store-file-hash" class="md-nav__link">
+    store-file-hash!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#store-hash-content" class="md-nav__link">
+    store-hash-content!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-files-hash" class="md-nav__link">
+    build-files-hash
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-hashes" class="md-nav__link">
+    files-hashes
   </a>
   
 </li>
@@ -437,6 +528,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#connection" class="md-nav__link">
+    connection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#home-directory" class="md-nav__link">
     home-directory
   </a>
@@ -486,6 +584,90 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    tags
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-files-clj" class="md-nav__link">
+    create-files-clj
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insert-file-hash-query" class="md-nav__link">
+    insert-file-hash-query
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-file-hash-query" class="md-nav__link">
+    update-file-hash-query
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-query" class="md-nav__link">
+    file-query
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-query" class="md-nav__link">
+    files-query
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-exists" class="md-nav__link">
+    file-exists?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#store-file-hash-query" class="md-nav__link">
+    store-file-hash-query
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#store-file-hash" class="md-nav__link">
+    store-file-hash!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#store-hash-content" class="md-nav__link">
+    store-hash-content!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-files-hash" class="md-nav__link">
+    build-files-hash
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-hashes" class="md-nav__link">
+    files-hashes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#rich-comment" class="md-nav__link">
     Rich Comment
   </a>
@@ -516,9 +698,11 @@
 <p>Data converters for org-roam-db</p>
 <details class="tip"><summary>(<code>ns</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">ns </span><span class="nv">org-roam-clj.db</span>
   <span class="p">(</span><span class="ss">:require</span>
-   <span class="p">[</span><span class="nv">clojure.java.io</span> <span class="ss">:as</span> <span class="nv">io</span><span class="p">]</span>
    <span class="p">[</span><span class="nv">clojure.edn</span><span class="p">]</span>
+   <span class="p">[</span><span class="nv">clojure.java.io</span> <span class="ss">:as</span> <span class="nv">io</span><span class="p">]</span>
    <span class="p">[</span><span class="nv">clojure.string</span> <span class="ss">:as</span> <span class="nv">str</span><span class="p">]</span>
+   <span class="p">[</span><span class="nv">honeysql.core</span> <span class="ss">:as</span> <span class="nv">sql</span><span class="p">]</span>
+   <span class="p">[</span><span class="nv">org-roam-clj.utils</span> <span class="ss">:refer</span> <span class="p">(</span><span class="nf">sha1-str</span> <span class="nv">gather-org-files</span><span class="p">)]</span>
    <span class="p">[</span><span class="nv">next.jdbc</span> <span class="ss">:as</span> <span class="nv">jdbc</span><span class="p">]</span>
    <span class="p">[</span><span class="nv">next.jdbc.result-set</span> <span class="ss">:as</span> <span class="nv">rs</span><span class="p">]))</span>
 </code></pre></div>
@@ -542,6 +726,11 @@
 </code></pre></div>
 
 </details>
+<h2 id="connection"><code>connection</code><a class="headerlink" href="#connection" title="Permanent link">&para;</a></h2>
+<details class="tip"><summary>(<code>def</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="k">def </span><span class="nv">connection</span> <span class="p">(</span><span class="nf">atom</span> <span class="p">(</span><span class="nf">jdbc/get-connection</span> <span class="p">(</span><span class="nf">data-resource</span><span class="p">))))</span>
+</code></pre></div>
+
+</details>
 <h2 id="home-directory"><code>home-directory</code><a class="headerlink" href="#home-directory" title="Permanent link">&para;</a></h2>
 <details class="tip"><summary>(<code>def</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="k">def </span><span class="nv">home-directory</span>
   <span class="p">(</span><span class="nf">memoize</span> <span class="p">(</span><span class="k">fn </span><span class="p">[]</span> <span class="p">(</span><span class="nf">System/getProperty</span> <span class="s">&quot;user.home&quot;</span><span class="p">))))</span>
@@ -550,14 +739,13 @@
 </details>
 <h2 id="execute-query"><code>execute-query!</code><a class="headerlink" href="#execute-query" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">execute-query!</span> <span class="nv">query</span><span class="p">)</span>
-<span class="p">(</span><span class="nf">execute-query!</span> <span class="nv">query</span> <span class="nv">ds</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">execute-query!</span> <span class="nv">query</span> <span class="nv">connection</span><span class="p">)</span>
 </code></pre></div>
 
 <details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">execute-query!</span>
-  <span class="p">([</span><span class="nv">query</span><span class="p">]</span> <span class="p">(</span><span class="nf">execute-query!</span> <span class="nv">query</span> <span class="p">(</span><span class="nf">data-resource</span><span class="p">)))</span>
-  <span class="p">([</span><span class="nv">query</span> <span class="nv">ds</span><span class="p">]</span>
-   <span class="p">(</span><span class="nb">with-open </span><span class="p">[</span><span class="nv">connection</span> <span class="p">(</span><span class="nf">jdbc/get-connection</span> <span class="nv">ds</span><span class="p">)]</span>
-     <span class="p">(</span><span class="nf">jdbc/execute!</span> <span class="nv">connection</span> <span class="nv">query</span> <span class="p">{</span><span class="ss">:builder-fn</span> <span class="nv">rs/as-unqualified-maps</span><span class="p">}))))</span>
+  <span class="p">([</span><span class="nv">query</span><span class="p">]</span> <span class="p">(</span><span class="nf">execute-query!</span> <span class="nv">query</span> <span class="o">@</span><span class="nv">connection</span><span class="p">))</span>
+  <span class="p">([</span><span class="nv">query</span> <span class="nv">connection</span><span class="p">]</span>
+   <span class="p">(</span><span class="nf">jdbc/execute!</span> <span class="nv">connection</span> <span class="nv">query</span> <span class="p">{</span><span class="ss">:builder-fn</span> <span class="nv">rs/as-unqualified-maps</span><span class="p">})))</span>
 </code></pre></div>
 
 </details>
@@ -584,13 +772,16 @@
 
 </details>
 <h2 id="parse-lisp-record"><code>parse-lisp-record</code><a class="headerlink" href="#parse-lisp-record" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">parse-lisp-record</span> <span class="nv">m</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="admonition danger">
+<p class="admonition-title">Parsing error</p>
+<p>The displayed code is not valid. This is due to Marginalia's parsing code.</p>
+</div>
 <details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">parse-lisp-record</span> <span class="p">[</span><span class="nv">m</span><span class="p">]</span>
   <span class="p">(</span><span class="nf">reduce-kv</span>
-   <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">m</span> <span class="nv">k</span> <span class="nv">v</span><span class="p">]</span> <span class="p">(</span><span class="nb">assoc </span><span class="nv">m</span> <span class="nv">k</span> <span class="p">(</span><span class="nf">try</span> <span class="p">(</span><span class="nf">clojure.edn/read-string</span> <span class="nv">v</span><span class="p">)</span>
-                               <span class="p">(</span><span class="nf">catch</span> <span class="nv">Exception</span> <span class="nv">_</span> <span class="p">(</span><span class="nb">println </span><span class="nv">v</span><span class="p">)</span> <span class="nv">v</span><span class="p">))))</span>
+   <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">m</span> <span class="nv">k</span> <span class="nv">v</span><span class="p">]</span> <span class="p">(</span><span class="nb">assoc </span><span class="nv">m</span> <span class="nv">k</span>
+                      <span class="p">(</span><span class="nf">try</span> <span class="p">(</span><span class="nf">clojure.edn/read-string</span> <span class="nv">v</span><span class="p">)</span>
+                           <span class="p">(</span><span class="nf">catch</span> <span class="nv">Exception</span> <span class="nv">_</span> <span class="p">(</span><span class="nb">println </span><span class="nv">v</span><span class="p">)</span>
+                                  <span class="p">(</span><span class="nb">str </span><span class="p">(</span><span class="nb">take-while </span><span class="o">#</span><span class="p">(</span><span class="nb">not= </span><span class="err">&quot;</span><span class="sc">\)</span> <span class="p">(</span><span class="nb">drop </span><span class="mi">2</span> <span class="nv">v</span><span class="p">)))))))</span>
    <span class="p">{}</span> <span class="nv">m</span><span class="p">))</span>
 </code></pre></div>
 
@@ -620,16 +811,173 @@
 </code></pre></div>
 
 </details>
+<h2 id="tags"><code>tags</code><a class="headerlink" href="#tags" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">tags</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">tags</span> <span class="p">[]</span>
+  <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nf">execute-query!</span> <span class="p">[</span><span class="s">&quot;select file, tags from tags&quot;</span><span class="p">])</span>
+       <span class="p">(</span><span class="nb">map </span><span class="nv">parse-lisp-record</span><span class="p">)</span>
+       <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nf">update</span> <span class="nv">%</span> <span class="ss">:file</span> <span class="nv">expand-home</span><span class="p">))</span>
+       <span class="p">(</span><span class="nb">reduce </span><span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">m</span> <span class="p">{</span><span class="ss">:keys</span> <span class="p">[</span><span class="nv">file</span> <span class="nv">tags</span><span class="p">]}]</span> <span class="p">(</span><span class="nb">assoc </span><span class="nv">m</span> <span class="nv">file</span> <span class="nv">tags</span><span class="p">))</span> <span class="p">{})))</span>
+</code></pre></div>
+
+</details>
+<h2 id="create-files-clj"><code>create-files-clj</code><a class="headerlink" href="#create-files-clj" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">create-files-clj</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">create-files-clj</span> <span class="p">[]</span>
+  <span class="p">(</span><span class="nf">try</span>
+    <span class="p">(</span><span class="nf">execute-query!</span>
+     <span class="p">[</span><span class="s">&quot;create table files_clj  (</span>
+<span class="s">file varchar(3000) PRIMARY KEY,</span>
+<span class="s">hash vacharc(40))&quot;</span><span class="p">])</span>
+    <span class="p">(</span><span class="nf">catch</span> <span class="nv">org.sqlite.SQLiteException</span> <span class="nv">_</span>
+      <span class="p">(</span><span class="nb">println </span><span class="s">&quot;Table files_clj already exists.&quot;</span><span class="p">))))</span>
+</code></pre></div>
+
+</details>
+<h2 id="insert-file-hash-query"><code>insert-file-hash-query</code><a class="headerlink" href="#insert-file-hash-query" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">insert-file-hash-query</span> <span class="nv">filename</span> <span class="nv">content</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">insert-file-hash-query</span> <span class="p">[</span><span class="nv">filename</span> <span class="nv">content</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">sha1</span> <span class="p">(</span><span class="nf">sha1-str</span> <span class="nv">content</span><span class="p">)]</span>
+    <span class="p">{</span><span class="ss">:insert-into</span> <span class="ss">:files_clj</span>
+     <span class="ss">:columns</span> <span class="p">[</span><span class="ss">:file</span> <span class="ss">:hash</span><span class="p">]</span>
+     <span class="ss">:values</span> <span class="p">[[</span><span class="nv">filename</span> <span class="nv">sha1</span><span class="p">]]}))</span>
+</code></pre></div>
+
+</details>
+<h2 id="update-file-hash-query"><code>update-file-hash-query</code><a class="headerlink" href="#update-file-hash-query" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">update-file-hash-query</span> <span class="nv">filename</span> <span class="nv">content</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">update-file-hash-query</span> <span class="p">[</span><span class="nv">filename</span> <span class="nv">content</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">sha1</span> <span class="p">(</span><span class="nf">sha1-str</span> <span class="nv">content</span><span class="p">)]</span>
+    <span class="p">{</span><span class="ss">:update</span> <span class="ss">:files_clj</span>
+     <span class="ss">:set</span> <span class="p">{</span><span class="ss">:file</span> <span class="nv">filename</span> <span class="ss">:hash</span> <span class="nv">sha1</span><span class="p">}</span>
+     <span class="ss">:where</span> <span class="p">[</span><span class="ss">:=</span> <span class="ss">:file</span> <span class="nv">filename</span><span class="p">]}))</span>
+</code></pre></div>
+
+</details>
+<h2 id="file-query"><code>file-query</code><a class="headerlink" href="#file-query" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">file-query</span> <span class="nv">filename</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">file-query</span> <span class="p">[</span><span class="nv">filename</span><span class="p">]</span>
+  <span class="p">{</span><span class="ss">:select</span> <span class="p">[</span><span class="ss">:*</span><span class="p">]</span>
+   <span class="ss">:from</span> <span class="p">[</span><span class="ss">:files_clj</span><span class="p">]</span>
+   <span class="ss">:where</span> <span class="p">[</span><span class="ss">:=</span> <span class="ss">:file</span> <span class="nv">filename</span><span class="p">]</span>
+   <span class="ss">:limit</span> <span class="mi">1</span><span class="p">})</span>
+</code></pre></div>
+
+</details>
+<h2 id="files-query"><code>files-query</code><a class="headerlink" href="#files-query" title="Permanent link">&para;</a></h2>
+<p>All files and their hashes.</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">files-query</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">files-query</span>
+  <span class="p">[]</span>
+  <span class="p">{</span><span class="ss">:select</span> <span class="p">[</span><span class="ss">:*</span><span class="p">]</span> <span class="ss">:from</span> <span class="p">[</span><span class="ss">:files_clj</span><span class="p">]})</span>
+</code></pre></div>
+
+</details>
+<h2 id="file-exists"><code>file-exists?</code><a class="headerlink" href="#file-exists" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">file-exists?</span> <span class="nv">filename</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">file-exists?</span> <span class="p">[</span><span class="nv">filename</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">pos? </span><span class="p">(</span><span class="nb">count </span><span class="p">(</span><span class="nf">execute-query!</span> <span class="p">(</span><span class="nf">sql/format</span> <span class="p">(</span><span class="nf">file-query</span> <span class="nv">filename</span><span class="p">))))))</span>
+</code></pre></div>
+
+</details>
+<h2 id="store-file-hash-query"><code>store-file-hash-query</code><a class="headerlink" href="#store-file-hash-query" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">store-file-hash-query</span> <span class="nv">filename</span> <span class="nv">content</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">store-file-hash-query</span> <span class="nv">filename</span> <span class="nv">content</span> <span class="nv">update?</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">store-file-hash-query</span>
+  <span class="p">([</span><span class="nv">filename</span> <span class="nv">content</span><span class="p">]</span>
+   <span class="p">(</span><span class="nf">store-file-hash-query</span> <span class="nv">filename</span> <span class="nv">content</span> <span class="p">(</span><span class="nf">file-exists?</span> <span class="nv">filename</span><span class="p">)))</span>
+  <span class="p">([</span><span class="nv">filename</span> <span class="nv">content</span> <span class="nv">update?</span><span class="p">]</span>
+   <span class="p">(</span><span class="k">if </span><span class="nv">update?</span>
+     <span class="p">(</span><span class="nf">update-file-hash-query</span> <span class="nv">filename</span> <span class="nv">content</span><span class="p">)</span>
+     <span class="p">(</span><span class="nf">insert-file-hash-query</span> <span class="nv">filename</span> <span class="nv">content</span><span class="p">))))</span>
+</code></pre></div>
+
+</details>
+<h2 id="store-file-hash"><code>store-file-hash!</code><a class="headerlink" href="#store-file-hash" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">store-file-hash!</span> <span class="nv">filename</span> <span class="nv">content</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">store-file-hash!</span> <span class="nv">filename</span> <span class="nv">content</span> <span class="nv">update?</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">store-file-hash!</span>
+  <span class="p">([</span><span class="nv">filename</span> <span class="nv">content</span><span class="p">]</span>
+   <span class="p">(</span><span class="nf">store-file-hash!</span> <span class="nv">filename</span> <span class="nv">content</span> <span class="p">(</span><span class="nf">file-exists?</span> <span class="nv">filename</span><span class="p">)))</span>
+  <span class="p">([</span><span class="nv">filename</span> <span class="nv">content</span> <span class="nv">update?</span><span class="p">]</span>
+   <span class="p">(</span><span class="nb">-&gt; </span><span class="p">(</span><span class="nf">store-file-hash-query</span> <span class="nv">filename</span> <span class="nv">content</span> <span class="nv">update?</span><span class="p">)</span>
+       <span class="nv">sql/format</span>
+       <span class="nv">execute-query!</span><span class="p">)))</span>
+</code></pre></div>
+
+</details>
+<h2 id="store-hash-content"><code>store-hash-content!</code><a class="headerlink" href="#store-hash-content" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">store-hash-content!</span> <span class="nv">f</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">store-hash-content!</span> <span class="p">[</span><span class="nv">f</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">filename</span> <span class="p">(</span><span class="nf">.getCanonicalPath</span> <span class="nv">f</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">store-file-hash!</span> <span class="nv">filename</span> <span class="p">(</span><span class="nb">slurp </span><span class="nv">filename</span><span class="p">))))</span>
+</code></pre></div>
+
+</details>
+<h2 id="build-files-hash"><code>build-files-hash</code><a class="headerlink" href="#build-files-hash" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">build-files-hash</span> <span class="nv">root</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">build-files-hash</span> <span class="p">[</span><span class="nv">root</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">doseq </span><span class="p">[</span><span class="nv">f</span> <span class="p">(</span><span class="nf">gather-org-files</span> <span class="nv">root</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">store-hash-content!</span> <span class="nv">f</span><span class="p">)))</span>
+</code></pre></div>
+
+</details>
+<h2 id="files-hashes"><code>files-hashes</code><a class="headerlink" href="#files-hashes" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">files-hashes</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">files-hashes</span> <span class="p">[]</span> <span class="p">(</span><span class="nb">-&gt; </span><span class="p">(</span><span class="nf">files-query</span><span class="p">)</span> <span class="nv">sql/format</span> <span class="nv">execute-query!</span><span class="p">))</span>
+</code></pre></div>
+
+</details>
 <h2 id="rich-comment">Rich Comment<a class="headerlink" href="#rich-comment" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">comment</span>
+<div class="highlight"><pre><span></span><code><span class="o">#</span><span class="nv">_</span><span class="p">(</span><span class="kd">defn </span><span class="nv">updated-files</span> <span class="p">[</span><span class="nv">files</span><span class="p">]</span>
+  <span class="p">{</span><span class="ss">:select</span> <span class="p">[</span><span class="ss">:*</span><span class="p">]</span>
+   <span class="ss">:from</span> <span class="p">[</span><span class="ss">:files_clj</span><span class="p">]</span>
+   <span class="ss">:where</span> <span class="p">[</span><span class="ss">:in</span> <span class="ss">:file</span> <span class="nv">files</span><span class="p">]})</span>
+<span class="p">(</span><span class="nf">comment</span>
   <span class="p">(</span><span class="k">def </span><span class="nv">ds</span> <span class="p">(</span><span class="nf">data-resource</span><span class="p">))</span>
   <span class="p">(</span><span class="k">def </span><span class="nv">ts</span> <span class="p">(</span><span class="nf">titles</span><span class="p">))</span>
   <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="nv">titles</span>
        <span class="p">(</span><span class="nb">map </span><span class="nv">clojure.edn/read-string</span><span class="p">)</span>
-      <span class="o">#</span><span class="nv">_</span><span class="p">(</span><span class="nb">filter </span><span class="o">#</span><span class="p">(</span><span class="nf">str/endswith</span> <span class="p">(</span><span class="ss">:file</span> <span class="nv">%</span><span class="p">)</span> <span class="s">&quot;.org&quot;</span><span class="p">)))</span>
+       <span class="o">#</span><span class="nv">_</span><span class="p">(</span><span class="nb">filter </span><span class="o">#</span><span class="p">(</span><span class="nf">str/endswith</span> <span class="p">(</span><span class="ss">:file</span> <span class="nv">%</span><span class="p">)</span> <span class="s">&quot;.org&quot;</span><span class="p">)))</span>
   <span class="p">(</span><span class="nf">group-by</span> <span class="ss">:to</span> <span class="p">(</span><span class="nb">map </span><span class="nv">parse-lisp-record</span> <span class="p">(</span><span class="nf">execute-query!</span> <span class="p">[</span><span class="s">&quot;select \&quot;to\&quot;, \&quot;from\&quot; from links&quot;</span><span class="p">])))</span>
+  <span class="p">(</span><span class="nf">create-files-clj</span><span class="p">)</span>
   <span class="p">(</span><span class="nf">clojure.pprint/pprint</span> <span class="p">(</span><span class="nf">titles</span><span class="p">))</span>
-  <span class="p">(</span><span class="nf">clojure.pprint/pprint</span> <span class="p">(</span><span class="nf">backlinks</span><span class="p">)))</span>
+  <span class="p">(</span><span class="nf">clojure.pprint/pprint</span> <span class="p">(</span><span class="nf">backlinks</span><span class="p">))</span>
+  <span class="p">(</span><span class="nf">titles</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">build-files-hash</span> <span class="s">&quot;.&quot;</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">def </span><span class="nv">sql-map</span> <span class="p">{</span><span class="ss">:select</span> <span class="p">[</span><span class="ss">:*</span><span class="p">]</span> <span class="ss">:from</span> <span class="p">[</span><span class="ss">:files</span><span class="p">]})</span>
+  <span class="p">(</span><span class="nf">execute-query!</span> <span class="p">(</span><span class="nf">sql/format</span> <span class="nv">sql-map</span><span class="p">))</span>
+  <span class="p">(</span><span class="nf">execute-query!</span> <span class="p">(</span><span class="nf">sql/format</span> <span class="nv">sql-map</span><span class="p">))</span>
+  <span class="c1">;; just for fun use datascript and store the atom into a single transit json</span>
+  <span class="p">(</span><span class="nf">execute-query!</span> <span class="p">(</span><span class="nf">sql/format</span>  <span class="p">(</span><span class="nf">store-file-hash-query</span> <span class="s">&quot;whatever.clj&quot;</span> <span class="s">&quot;aésldkfjélkjéaldskjfélkj&quot;</span><span class="p">)))</span>
+  <span class="p">(</span><span class="nf">execute-query!</span> <span class="p">(</span><span class="nf">sql/format</span>  <span class="p">(</span><span class="nf">update-file-hash-query</span> <span class="s">&quot;hello.clj&quot;</span> <span class="s">&quot;aésldkfjélkjéaldskjfélkj&quot;</span><span class="p">)))</span>
+  <span class="p">(</span><span class="nf">execute-query!</span> <span class="p">(</span><span class="nf">sql/format</span> <span class="p">{</span><span class="ss">:select</span> <span class="p">[</span><span class="ss">:*</span><span class="p">]</span>
+                               <span class="ss">:from</span> <span class="p">[</span><span class="ss">:files_clj</span><span class="p">]</span>
+                               <span class="ss">:limit</span> <span class="mi">10</span><span class="p">})))</span>
 </code></pre></div>
                 
               

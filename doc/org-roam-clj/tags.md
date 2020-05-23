@@ -154,6 +154,10 @@ Automatically add links to org file with roam keys.
 
 ## `get-tags`
 
+
+
+TODO: check if this works.
+
 ```clojure
 (get-tags x)
 ```
@@ -162,7 +166,7 @@ Automatically add links to org file with roam keys.
 
     ```clojure
     (defn get-tags [x]
-      (when-let [tags (get-in x [:attribs :tags])]
+      (when-let [tags (get-in x [:attribs :roam-tags])]
         (str/split tags #"\s+")))
     ```
 
@@ -181,6 +185,16 @@ Automatically add links to org file with roam keys.
     ```clojure
     (def titles (memoize org-roam-clj.db/titles))
     (def backlinks (memoize org-roam-clj.db/backlinks))
+    (def tags (memoize org-roam-clj.db/tags))
+    ```
+
+## `filename->title`
+
+
+
+??? tip  "(`def`)"
+
+    ```clojure
     (def filename->title
       (memoize
        (fn []
@@ -221,13 +235,13 @@ Automatically add links to org file with roam keys.
 ## `file->link`
 
 ```clojure
-(file->link file org-data tags->filename)
+(file->link file tags->filename)
 ```
 
 ??? tip  "(`defn`)"
 
     ```clojure
-    (defn file->link [file org-data tags->filename]
+    (defn file->link [file tags->filename]
       (let [canonical-path (fn [file] (.getCanonicalPath file))
             file (canonical-path file)
             query-tags (fn [tags] (for [t (sort tags) :when t] [t (get tags->filename t)]))
@@ -241,7 +255,10 @@ Automatically add links to org file with roam keys.
                    (apply concat)
                    (into #{})
                    (sort-by #(->> % parse-org-link :alias str/lower-case))))]
-        (->> org-data get-tags query-tags org-links)))
+        (->> (str file)
+             (get (tags))
+             query-tags
+             org-links)))
     ```
 
 ## `file->backlink`
@@ -307,7 +324,7 @@ Automatically add links to org file with roam keys.
       (let [file (io/file f)
             org-data (org/parse file)
             link (->> (file->backlink (.getCanonicalPath file))
-                      (into (file->link file org-data tags->filename))
+                      (into (file->link file tags->filename))
                       (into #{})
                       (sort-by #(-> % parse-org-link :alias str/lower-case)))
             text-data (if (seq link) (append-generated-links file link org-data) {})]
@@ -417,10 +434,10 @@ Automatically add links to org file with roam keys.
   ;; append generated-links
   ;; (take-while #(not (str/starts-with "** See also (generated)" %)) line-seq)
   ;; overwrite generated-links (spit :append)
-  (let [file (io/file "./index.org")
+  (let [file (io/file "./todo.org")
         org-data (org/parse file)
-        link (file->link file org-data tags->filename)]
-    (clojure.pprint/pprint link)
+        link (file->link file tags->filename)]
+    (tap> (vec link))
     #_(when (seq link)
       (def x (append-generated-links file link org-data))))
   (org/parse (nth fs 10))
@@ -433,6 +450,8 @@ Automatically add links to org file with roam keys.
   (= (select-keys (parse-org-link "[[a][abcd]]") [:alias :uri]) {:uri "a", :alias "abcd"})
   (re-seq #"\[[^]]+]" "[[file:cards/clojure.org][Clojure]]")
   (conj #{1 2} 3)
-  ;; TODO(dph) add the back links using the links table)
+  ;; TODO(dph) add the back links using the links table
+  ;; (clojure.core/require '[shadow.cljs.devtools.server :as server])
+  ;; (server/start!))
 ```
 

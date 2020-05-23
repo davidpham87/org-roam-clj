@@ -347,6 +347,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#modified-files" class="md-nav__link">
+    modified-files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#convert-org-files" class="md-nav__link">
     convert-org-files
   </a>
@@ -363,6 +370,13 @@
         <li class="md-nav__item">
   <a href="#-main" class="md-nav__link">
     -main
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rich-comment" class="md-nav__link">
+    Rich Comment
   </a>
   
 </li>
@@ -484,6 +498,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#modified-files" class="md-nav__link">
+    modified-files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#convert-org-files" class="md-nav__link">
     convert-org-files
   </a>
@@ -500,6 +521,13 @@
         <li class="md-nav__item">
   <a href="#-main" class="md-nav__link">
     -main
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rich-comment" class="md-nav__link">
+    Rich Comment
   </a>
   
 </li>
@@ -531,8 +559,9 @@
    <span class="p">[</span><span class="nv">clojure.java.io</span> <span class="ss">:as</span> <span class="nv">io</span><span class="p">]</span>
    <span class="p">[</span><span class="nv">clojure.java.shell</span> <span class="ss">:as</span> <span class="nv">sh</span><span class="p">]</span>
    <span class="p">[</span><span class="nv">clojure.string</span> <span class="ss">:as</span> <span class="nv">str</span><span class="p">]</span>
+   <span class="p">[</span><span class="nv">org-roam-clj.db</span><span class="p">]</span>
    <span class="p">[</span><span class="nv">org-roam-clj.async</span> <span class="ss">:refer</span> <span class="p">(</span><span class="nf">master-coordinator</span> <span class="nv">log-tasks</span> <span class="nv">worker-chan</span> <span class="nv">finished-tasks</span><span class="p">)]</span>
-   <span class="p">[</span><span class="nv">org-roam-clj.utils</span> <span class="ss">:refer</span> <span class="p">(</span><span class="nf">now-formatted</span> <span class="nv">replace-extension</span><span class="p">)]))</span>
+   <span class="p">[</span><span class="nv">org-roam-clj.utils</span> <span class="ss">:refer</span> <span class="p">(</span><span class="nf">sha1-str</span> <span class="nv">now-formatted</span> <span class="nv">replace-extension</span><span class="p">)]))</span>
 </code></pre></div>
 
 </details>
@@ -574,11 +603,15 @@
 <h2 id="work"><code>work</code><a class="headerlink" href="#work" title="Permanent link">&para;</a></h2>
 <details class="tip"><summary>(<code>defmulti</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defmulti </span><span class="nv">work</span> <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">k</span> <span class="o">&amp;</span> <span class="nv">_</span><span class="p">]</span> <span class="nv">k</span><span class="p">))</span>
 <span class="p">(</span><span class="kd">defmethod </span><span class="nv">work</span> <span class="ss">:default</span> <span class="p">[</span><span class="nv">_</span><span class="p">]</span> <span class="nv">identity</span><span class="p">)</span>
-<span class="p">(</span><span class="kd">defmethod </span><span class="nv">work</span> <span class="ss">:pandoc</span> <span class="p">[</span><span class="nv">_</span> <span class="nv">filename</span><span class="p">]</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">p</span> <span class="p">(</span><span class="nf">pandoc</span> <span class="nv">filename</span>
-                  <span class="p">{</span><span class="ss">:t</span> <span class="ss">:gfm</span>
-                   <span class="ss">:o</span> <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nf">replace-extension</span> <span class="nv">filename</span> <span class="s">&quot;.md&quot;</span><span class="p">)</span> <span class="p">(</span><span class="nb">str </span><span class="s">&quot;docs/&quot;</span><span class="p">))})]</span>
-    <span class="p">(</span><span class="nf">.waitFor</span> <span class="nv">p</span><span class="p">)))</span>
+<span class="p">(</span><span class="kd">defmethod </span><span class="nv">work</span> <span class="ss">:pandoc</span> <span class="p">[</span><span class="nv">_</span> <span class="nv">file</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">filename</span> <span class="p">(</span><span class="nf">.getPath</span> <span class="nv">file</span><span class="p">)</span>
+        <span class="nv">md-filename</span> <span class="p">(</span><span class="nb">-&gt; </span><span class="p">(</span><span class="nf">replace-extension</span> <span class="nv">filename</span> <span class="s">&quot;md&quot;</span><span class="p">)</span>
+                        <span class="p">(</span><span class="nf">str/replace</span>  <span class="o">#</span><span class="s">&quot;^\./&quot;</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+        <span class="nv">p</span> <span class="p">(</span><span class="nf">pandoc</span> <span class="nv">filename</span>
+                    <span class="p">{</span><span class="ss">:t</span> <span class="ss">:gfm</span>
+                     <span class="ss">:o</span> <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nb">str </span><span class="s">&quot;docs-md/&quot;</span> <span class="nv">md-filename</span><span class="p">))})</span>
+        <span class="nv">status</span> <span class="p">(</span><span class="nf">.waitFor</span> <span class="nv">p</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nb">println </span><span class="p">(</span><span class="nf">now-formatted</span><span class="p">)</span> <span class="s">&quot;Exit status for pandoc (&quot;</span> <span class="nv">filename</span> <span class="s">&quot;): &quot;</span> <span class="nv">status</span><span class="p">)))</span>
 </code></pre></div>
 
 </details>
@@ -620,6 +653,19 @@
 </code></pre></div>
 
 </details>
+<h2 id="modified-files"><code>modified-files</code><a class="headerlink" href="#modified-files" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">modified-files</span> <span class="nv">fs</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">modified-files</span> <span class="p">[</span><span class="nv">fs</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">files-hashes</span> <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nf">org-roam-clj.db/files-hashes</span><span class="p">)</span>
+                          <span class="p">(</span><span class="nb">reduce </span><span class="o">#</span><span class="p">(</span><span class="nb">assoc </span><span class="nv">%1</span> <span class="p">(</span><span class="ss">:file</span> <span class="nv">%2</span><span class="p">)</span> <span class="p">(</span><span class="ss">:hash</span> <span class="nv">%2</span><span class="p">))</span> <span class="p">{}))]</span>
+    <span class="p">(</span><span class="nb">filter </span><span class="o">#</span><span class="p">(</span><span class="nb">not= </span><span class="p">(</span><span class="nb">get </span><span class="nv">files-hashes</span> <span class="p">(</span><span class="nb">str </span><span class="p">(</span><span class="nf">.getCanonicalPath</span> <span class="nv">%</span><span class="p">)))</span>
+                   <span class="p">(</span><span class="nf">sha1-str</span> <span class="p">(</span><span class="nb">slurp </span><span class="p">(</span><span class="nb">str </span><span class="nv">%</span><span class="p">))))</span>
+            <span class="nv">fs</span><span class="p">)))</span>
+</code></pre></div>
+
+</details>
 <h2 id="convert-org-files"><code>convert-org-files</code><a class="headerlink" href="#convert-org-files" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">convert-org-files</span><span class="p">)</span>
 <span class="p">(</span><span class="nf">convert-org-files</span> <span class="nv">root</span><span class="p">)</span>
@@ -628,7 +674,9 @@
 <details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">convert-org-files</span>
   <span class="p">([]</span> <span class="p">(</span><span class="nf">convert-org-files</span> <span class="s">&quot;.&quot;</span><span class="p">))</span>
   <span class="p">([</span><span class="nv">root</span><span class="p">]</span>
-   <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">fs</span> <span class="p">(</span><span class="nb">filter </span><span class="o">#</span><span class="p">(</span><span class="nf">str/ends-with?</span> <span class="nv">%</span> <span class="s">&quot;.org&quot;</span><span class="p">)</span> <span class="p">(</span><span class="nb">file-seq </span><span class="p">(</span><span class="nf">io/file</span> <span class="nv">root</span><span class="p">)))</span>
+   <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">fs</span> <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nb">file-seq </span><span class="p">(</span><span class="nf">io/file</span> <span class="nv">root</span><span class="p">))</span>
+                 <span class="p">(</span><span class="nb">filter </span><span class="o">#</span><span class="p">(</span><span class="nf">str/ends-with?</span> <span class="nv">%</span> <span class="s">&quot;.org&quot;</span><span class="p">))</span>
+                 <span class="nv">modified-files</span><span class="p">)</span>
          <span class="nv">size</span> <span class="mi">16</span>
          <span class="nv">master-chan</span> <span class="p">(</span><span class="nf">chan</span> <span class="nv">size</span><span class="p">)</span>
          <span class="nv">log-chan</span> <span class="p">(</span><span class="nf">chan</span> <span class="nv">size</span><span class="p">)</span>
@@ -653,7 +701,11 @@
      <span class="p">(</span><span class="nb">println </span><span class="p">(</span><span class="nb">count </span><span class="o">@</span><span class="nv">terminated-tasks</span><span class="p">)</span> <span class="p">(</span><span class="nb">count </span><span class="nv">fs</span><span class="p">))</span>
      <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">final-chan</span> <span class="p">(</span><span class="nf">chan</span><span class="p">)]</span>
        <span class="p">(</span><span class="nf">a/&gt;!!</span> <span class="nv">master-chan</span> <span class="p">[</span><span class="ss">:mkdocs</span> <span class="nv">final-chan</span><span class="p">])</span>
-       <span class="p">(</span><span class="nb">println </span><span class="p">(</span><span class="nf">a/&lt;!!</span> <span class="nv">final-chan</span><span class="p">))))))</span>
+       <span class="p">(</span><span class="nb">println </span><span class="p">(</span><span class="nf">a/&lt;!!</span> <span class="nv">final-chan</span><span class="p">)))</span>
+     <span class="p">(</span><span class="nb">println </span><span class="s">&quot;Store files hashes for efficiency&quot;</span><span class="p">)</span>
+     <span class="p">(</span><span class="nf">org-roam-clj.db/create-files-clj</span><span class="p">)</span>
+     <span class="p">(</span><span class="nb">doseq </span><span class="p">[</span><span class="nv">f</span> <span class="nv">fs</span><span class="p">]</span>
+       <span class="p">(</span><span class="nf">org-roam-clj.db/store-hash-content!</span> <span class="nv">f</span><span class="p">)))))</span>
 </code></pre></div>
 
 </details>
@@ -679,6 +731,12 @@
 </code></pre></div>
 
 </details>
+<h2 id="rich-comment">Rich Comment<a class="headerlink" href="#rich-comment" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">comment</span>
+  <span class="p">(</span><span class="nf">tap&gt;</span> <span class="p">(</span><span class="nf">org-roam-clj.db/files-hashes</span><span class="p">))</span>
+
+<span class="p">)</span>
+</code></pre></div>
                 
               
               

@@ -11,7 +11,8 @@
        [clojure.string :as str])
       (:import
        [java.net URI]
-       [java.nio.file Paths]))
+       [java.nio.file Paths]
+       [java.security MessageDigest]))
     ```
 
 ## `debug`
@@ -137,5 +138,38 @@ Returns the relative path of `location` with respect to `root`
        (into [] (comp (filter #(str/ends-with? % ".org"))
                       (map #(.getCanonicalPath %)))
              (file-seq (io/file root)))))
+    ```
+
+## `sha1-str`
+
+```clojure
+(sha1-str s)
+```
+
+??? tip  "(`defn`)"
+
+    ```clojure
+    (defn sha1-str [s]
+      (let [digested (-> "sha1"
+                         MessageDigest/getInstance
+                         (.digest (.getBytes s)))]
+        (->> digested
+             (map #(.substring
+                    (Integer/toString
+                     (+ (bit-and % 0xff) 0x100) 16) 1))
+             (apply str))))
+    ```
+
+## `gather-org-files`
+
+```clojure
+(gather-org-files root)
+```
+
+??? tip  "(`defn`)"
+
+    ```clojure
+    (defn gather-org-files [root]
+      (filterv #(str/ends-with? % ".org") (file-seq (io/file root))))
     ```
 

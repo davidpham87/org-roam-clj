@@ -381,6 +381,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#filename-title" class="md-nav__link">
+    filename-&gt;title
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tags-filename" class="md-nav__link">
     tags-&gt;filename
   </a>
@@ -586,6 +593,13 @@
         <li class="md-nav__item">
   <a href="#titles" class="md-nav__link">
     titles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filename-title" class="md-nav__link">
+    filename-&gt;title
   </a>
   
 </li>
@@ -801,11 +815,12 @@
 
 </details>
 <h2 id="get-tags"><code>get-tags</code><a class="headerlink" href="#get-tags" title="Permanent link">&para;</a></h2>
+<p>TODO: check if this works.</p>
 <div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">get-tags</span> <span class="nv">x</span><span class="p">)</span>
 </code></pre></div>
 
 <details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">get-tags</span> <span class="p">[</span><span class="nv">x</span><span class="p">]</span>
-  <span class="p">(</span><span class="nb">when-let </span><span class="p">[</span><span class="nv">tags</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">x</span> <span class="p">[</span><span class="ss">:attribs</span> <span class="ss">:tags</span><span class="p">])]</span>
+  <span class="p">(</span><span class="nb">when-let </span><span class="p">[</span><span class="nv">tags</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">x</span> <span class="p">[</span><span class="ss">:attribs</span> <span class="ss">:roam-tags</span><span class="p">])]</span>
     <span class="p">(</span><span class="nf">str/split</span> <span class="nv">tags</span> <span class="o">#</span><span class="s">&quot;\s+&quot;</span><span class="p">)))</span>
 </code></pre></div>
 
@@ -813,7 +828,12 @@
 <h2 id="titles"><code>titles</code><a class="headerlink" href="#titles" title="Permanent link">&para;</a></h2>
 <details class="tip"><summary>(<code>def</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="k">def </span><span class="nv">titles</span> <span class="p">(</span><span class="nf">memoize</span> <span class="nv">org-roam-clj.db/titles</span><span class="p">))</span>
 <span class="p">(</span><span class="k">def </span><span class="nv">backlinks</span> <span class="p">(</span><span class="nf">memoize</span> <span class="nv">org-roam-clj.db/backlinks</span><span class="p">))</span>
-<span class="p">(</span><span class="k">def </span><span class="nv">filename-&gt;title</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">tags</span> <span class="p">(</span><span class="nf">memoize</span> <span class="nv">org-roam-clj.db/tags</span><span class="p">))</span>
+</code></pre></div>
+
+</details>
+<h2 id="filename-title"><code>filename-&gt;title</code><a class="headerlink" href="#filename-title" title="Permanent link">&para;</a></h2>
+<details class="tip"><summary>(<code>def</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="k">def </span><span class="nv">filename-&gt;title</span>
   <span class="p">(</span><span class="nf">memoize</span>
    <span class="p">(</span><span class="k">fn </span><span class="p">[]</span>
      <span class="p">(</span><span class="nb">reduce </span><span class="o">#</span><span class="p">(</span><span class="nb">assoc </span><span class="nv">%1</span> <span class="p">(</span><span class="ss">:file</span> <span class="nv">%2</span><span class="p">)</span> <span class="p">(</span><span class="nb">first </span><span class="p">(</span><span class="ss">:titles</span> <span class="nv">%2</span><span class="p">)))</span> <span class="p">{}</span> <span class="p">(</span><span class="nf">titles</span><span class="p">)))))</span>
@@ -843,10 +863,10 @@
 
 </details>
 <h2 id="file-link"><code>file-&gt;link</code><a class="headerlink" href="#file-link" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">file-&gt;link</span> <span class="nv">file</span> <span class="nv">org-data</span> <span class="nv">tags-&gt;filename</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">file-&gt;link</span> <span class="nv">file</span> <span class="nv">tags-&gt;filename</span><span class="p">)</span>
 </code></pre></div>
 
-<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">file-&gt;link</span> <span class="p">[</span><span class="nv">file</span> <span class="nv">org-data</span> <span class="nv">tags-&gt;filename</span><span class="p">]</span>
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">file-&gt;link</span> <span class="p">[</span><span class="nv">file</span> <span class="nv">tags-&gt;filename</span><span class="p">]</span>
   <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">canonical-path</span> <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">file</span><span class="p">]</span> <span class="p">(</span><span class="nf">.getCanonicalPath</span> <span class="nv">file</span><span class="p">))</span>
         <span class="nv">file</span> <span class="p">(</span><span class="nf">canonical-path</span> <span class="nv">file</span><span class="p">)</span>
         <span class="nv">query-tags</span> <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">tags</span><span class="p">]</span> <span class="p">(</span><span class="nb">for </span><span class="p">[</span><span class="nv">t</span> <span class="p">(</span><span class="nb">sort </span><span class="nv">tags</span><span class="p">)</span> <span class="ss">:when</span> <span class="nv">t</span><span class="p">]</span> <span class="p">[</span><span class="nv">t</span> <span class="p">(</span><span class="nb">get </span><span class="nv">tags-&gt;filename</span> <span class="nv">t</span><span class="p">)]))</span>
@@ -860,7 +880,10 @@
                <span class="p">(</span><span class="nb">apply </span><span class="nv">concat</span><span class="p">)</span>
                <span class="p">(</span><span class="nb">into </span><span class="o">#</span><span class="p">{})</span>
                <span class="p">(</span><span class="nb">sort-by </span><span class="o">#</span><span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="nv">%</span> <span class="nv">parse-org-link</span> <span class="ss">:alias</span> <span class="nv">str/lower-case</span><span class="p">))))]</span>
-    <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="nv">org-data</span> <span class="nv">get-tags</span> <span class="nv">query-tags</span> <span class="nv">org-links</span><span class="p">)))</span>
+    <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nb">str </span><span class="nv">file</span><span class="p">)</span>
+         <span class="p">(</span><span class="nb">get </span><span class="p">(</span><span class="nf">tags</span><span class="p">))</span>
+         <span class="nv">query-tags</span>
+         <span class="nv">org-links</span><span class="p">)))</span>
 </code></pre></div>
 
 </details>
@@ -914,7 +937,7 @@
   <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">file</span> <span class="p">(</span><span class="nf">io/file</span> <span class="nv">f</span><span class="p">)</span>
         <span class="nv">org-data</span> <span class="p">(</span><span class="nf">org/parse</span> <span class="nv">file</span><span class="p">)</span>
         <span class="nv">link</span> <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nf">file-&gt;backlink</span> <span class="p">(</span><span class="nf">.getCanonicalPath</span> <span class="nv">file</span><span class="p">))</span>
-                  <span class="p">(</span><span class="nb">into </span><span class="p">(</span><span class="nf">file-&gt;link</span> <span class="nv">file</span> <span class="nv">org-data</span> <span class="nv">tags-&gt;filename</span><span class="p">))</span>
+                  <span class="p">(</span><span class="nb">into </span><span class="p">(</span><span class="nf">file-&gt;link</span> <span class="nv">file</span> <span class="nv">tags-&gt;filename</span><span class="p">))</span>
                   <span class="p">(</span><span class="nb">into </span><span class="o">#</span><span class="p">{})</span>
                   <span class="p">(</span><span class="nb">sort-by </span><span class="o">#</span><span class="p">(</span><span class="nb">-&gt; </span><span class="nv">%</span> <span class="nv">parse-org-link</span> <span class="ss">:alias</span> <span class="nv">str/lower-case</span><span class="p">)))</span>
         <span class="nv">text-data</span> <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">seq </span><span class="nv">link</span><span class="p">)</span> <span class="p">(</span><span class="nf">append-generated-links</span> <span class="nv">file</span> <span class="nv">link</span> <span class="nv">org-data</span><span class="p">)</span> <span class="p">{})]</span>
@@ -1003,10 +1026,10 @@
   <span class="c1">;; append generated-links</span>
   <span class="c1">;; (take-while #(not (str/starts-with &quot;** See also (generated)&quot; %)) line-seq)</span>
   <span class="c1">;; overwrite generated-links (spit :append)</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">file</span> <span class="p">(</span><span class="nf">io/file</span> <span class="s">&quot;./index.org&quot;</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">file</span> <span class="p">(</span><span class="nf">io/file</span> <span class="s">&quot;./todo.org&quot;</span><span class="p">)</span>
         <span class="nv">org-data</span> <span class="p">(</span><span class="nf">org/parse</span> <span class="nv">file</span><span class="p">)</span>
-        <span class="nv">link</span> <span class="p">(</span><span class="nf">file-&gt;link</span> <span class="nv">file</span> <span class="nv">org-data</span> <span class="nv">tags-&gt;filename</span><span class="p">)]</span>
-    <span class="p">(</span><span class="nf">clojure.pprint/pprint</span> <span class="nv">link</span><span class="p">)</span>
+        <span class="nv">link</span> <span class="p">(</span><span class="nf">file-&gt;link</span> <span class="nv">file</span> <span class="nv">tags-&gt;filename</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">tap&gt;</span> <span class="p">(</span><span class="nf">vec</span> <span class="nv">link</span><span class="p">))</span>
     <span class="o">#</span><span class="nv">_</span><span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nb">seq </span><span class="nv">link</span><span class="p">)</span>
       <span class="p">(</span><span class="k">def </span><span class="nv">x</span> <span class="p">(</span><span class="nf">append-generated-links</span> <span class="nv">file</span> <span class="nv">link</span> <span class="nv">org-data</span><span class="p">))))</span>
   <span class="p">(</span><span class="nf">org/parse</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">fs</span> <span class="mi">10</span><span class="p">))</span>
@@ -1019,7 +1042,9 @@
   <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">select-keys </span><span class="p">(</span><span class="nf">parse-org-link</span> <span class="s">&quot;[[a][abcd]]&quot;</span><span class="p">)</span> <span class="p">[</span><span class="ss">:alias</span> <span class="ss">:uri</span><span class="p">])</span> <span class="p">{</span><span class="ss">:uri</span> <span class="s">&quot;a&quot;</span>, <span class="ss">:alias</span> <span class="s">&quot;abcd&quot;</span><span class="p">})</span>
   <span class="p">(</span><span class="nb">re-seq </span><span class="o">#</span><span class="s">&quot;\[[^]]+]&quot;</span> <span class="s">&quot;[[file:cards/clojure.org][Clojure]]&quot;</span><span class="p">)</span>
   <span class="p">(</span><span class="nb">conj </span><span class="o">#</span><span class="p">{</span><span class="mi">1</span> <span class="mi">2</span><span class="p">}</span> <span class="mi">3</span><span class="p">)</span>
-  <span class="c1">;; TODO(dph) add the back links using the links table)</span>
+  <span class="c1">;; TODO(dph) add the back links using the links table</span>
+  <span class="c1">;; (clojure.core/require &#39;[shadow.cljs.devtools.server :as server])</span>
+  <span class="c1">;; (server/start!))</span>
 </code></pre></div>
                 
               

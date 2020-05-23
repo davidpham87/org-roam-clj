@@ -371,6 +371,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#sha1-str" class="md-nav__link">
+    sha1-str
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gather-org-files_1" class="md-nav__link">
+    gather-org-files
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -464,6 +478,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#sha1-str" class="md-nav__link">
+    sha1-str
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gather-org-files_1" class="md-nav__link">
+    gather-org-files
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -491,7 +519,8 @@
    <span class="p">[</span><span class="nv">clojure.string</span> <span class="ss">:as</span> <span class="nv">str</span><span class="p">])</span>
   <span class="p">(</span><span class="ss">:import</span>
    <span class="p">[</span><span class="nv">java.net</span> <span class="nv">URI</span><span class="p">]</span>
-   <span class="p">[</span><span class="nv">java.nio.file</span> <span class="nv">Paths</span><span class="p">]))</span>
+   <span class="p">[</span><span class="nv">java.nio.file</span> <span class="nv">Paths</span><span class="p">]</span>
+   <span class="p">[</span><span class="nv">java.security</span> <span class="nv">MessageDigest</span><span class="p">]))</span>
 </code></pre></div>
 
 </details>
@@ -580,6 +609,31 @@
    <span class="p">(</span><span class="nb">into </span><span class="p">[]</span> <span class="p">(</span><span class="nb">comp </span><span class="p">(</span><span class="nb">filter </span><span class="o">#</span><span class="p">(</span><span class="nf">str/ends-with?</span> <span class="nv">%</span> <span class="s">&quot;.org&quot;</span><span class="p">))</span>
                   <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nf">.getCanonicalPath</span> <span class="nv">%</span><span class="p">)))</span>
          <span class="p">(</span><span class="nb">file-seq </span><span class="p">(</span><span class="nf">io/file</span> <span class="nv">root</span><span class="p">)))))</span>
+</code></pre></div>
+
+</details>
+<h2 id="sha1-str"><code>sha1-str</code><a class="headerlink" href="#sha1-str" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">sha1-str</span> <span class="nv">s</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">sha1-str</span> <span class="p">[</span><span class="nv">s</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">digested</span> <span class="p">(</span><span class="nb">-&gt; </span><span class="s">&quot;sha1&quot;</span>
+                     <span class="nv">MessageDigest/getInstance</span>
+                     <span class="p">(</span><span class="nf">.digest</span> <span class="p">(</span><span class="nf">.getBytes</span> <span class="nv">s</span><span class="p">)))]</span>
+    <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="nv">digested</span>
+         <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nf">.substring</span>
+                <span class="p">(</span><span class="nf">Integer/toString</span>
+                 <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nb">bit-and </span><span class="nv">%</span> <span class="mi">0</span><span class="nv">xff</span><span class="p">)</span> <span class="mi">0</span><span class="nv">x100</span><span class="p">)</span> <span class="mi">16</span><span class="p">)</span> <span class="mi">1</span><span class="p">))</span>
+         <span class="p">(</span><span class="nb">apply </span><span class="nv">str</span><span class="p">))))</span>
+</code></pre></div>
+
+</details>
+<h2 id="gather-org-files_1"><code>gather-org-files</code><a class="headerlink" href="#gather-org-files_1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">gather-org-files</span> <span class="nv">root</span><span class="p">)</span>
+</code></pre></div>
+
+<details class="tip"><summary>(<code>defn</code>)</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">gather-org-files</span> <span class="p">[</span><span class="nv">root</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">filterv</span> <span class="o">#</span><span class="p">(</span><span class="nf">str/ends-with?</span> <span class="nv">%</span> <span class="s">&quot;.org&quot;</span><span class="p">)</span> <span class="p">(</span><span class="nb">file-seq </span><span class="p">(</span><span class="nf">io/file</span> <span class="nv">root</span><span class="p">))))</span>
 </code></pre></div>
 
 </details>

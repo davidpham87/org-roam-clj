@@ -11,8 +11,9 @@
        [clojure.java.io :as io]
        [clojure.java.shell :as sh]
        [clojure.string :as str]
+       [org-roam-clj.db]
        [org-roam-clj.async :refer (master-coordinator log-tasks worker-chan finished-tasks)]
-       [org-roam-clj.utils :refer (now-formatted replace-extension)]))
+       [org-roam-clj.utils :refer (sha1-str now-formatted replace-extension)]))
     ```
 
 ## `pandoc-cli-args`
@@ -77,11 +78,15 @@
     ```clojure
     (defmulti work (fn [k & _] k))
     (defmethod work :default [_] identity)
-    (defmethod work :pandoc [_ filename]
-      (let [p (pandoc filename
-                      {:t :gfm
-                       :o (->> (replace-extension filename ".md") (str "docs/"))})]
-        (.waitFor p)))
+    (defmethod work :pandoc [_ file]
+      (let [filename (.getPath file)
+            md-filename (-> (replace-extension filename "md")
+                            (str/replace  #"^\./" ""))
+            p (pandoc filename
+                        {:t :gfm
+                         :o (->> (str "docs-md/" md-filename))})
+            status (.waitFor p)]
+        (println (now-formatted) "Exit status for pandoc (" filename "): " status)))
     ```
 
 ### work :orgmk
@@ -132,6 +137,23 @@
       (mapv (fn [_] (worker-chan work log-chan)) (range n)))
     ```
 
+## `modified-files`
+
+```clojure
+(modified-files fs)
+```
+
+??? tip  "(`defn`)"
+
+    ```clojure
+    (defn modified-files [fs]
+      (let [files-hashes (->> (org-roam-clj.db/files-hashes)
+                              (reduce #(assoc %1 (:file %2) (:hash %2)) {}))]
+        (filter #(not= (get files-hashes (str (.getCanonicalPath %)))
+                       (sha1-str (slurp (str %))))
+                fs)))
+    ```
+
 ## `convert-org-files`
 
 ```clojure
@@ -145,7 +167,9 @@
     (defn convert-org-files
       ([] (convert-org-files "."))
       ([root]
-       (let [fs (filter #(str/ends-with? % ".org") (file-seq (io/file root)))
+       (let [fs (->> (file-seq (io/file root))
+                     (filter #(str/ends-with? % ".org"))
+                     modified-files)
              size 16
              master-chan (chan size)
              log-chan (chan size)
@@ -170,7 +194,11 @@
          (println (count @terminated-tasks) (count fs))
          (let [final-chan (chan)]
            (a/>!! master-chan [:mkdocs final-chan])
-           (println (a/<!! final-chan))))))
+           (println (a/<!! final-chan)))
+         (println "Store files hashes for efficiency")
+         (org-roam-clj.db/create-files-clj)
+         (doseq [f fs]
+           (org-roam-clj.db/store-hash-content! f)))))
     ```
 
 ## `clean-folder`
@@ -202,4 +230,13 @@
       (convert-org-files)
       (println "End of script"))
     ```
+
+## Rich Comment
+
+```clojure
+(comment
+  (tap> (org-roam-clj.db/files-hashes))
+
+)
+```
 

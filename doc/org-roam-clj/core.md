@@ -40,7 +40,7 @@
       (let [cli-args (parse-opts args cli-options)]
         (if (get-in cli-args [:options :help])
           (println (:summary cli-args))
-          (case (:task cli-args)
+          (case (get-in cli-args [:options :task])
             :create-tags (org-roam-clj.tags/create-tags)
             :clear-tags (org-roam-clj.tags/clear-tags)
             :markdown (org-roam-clj.markdown/convert-org-files)

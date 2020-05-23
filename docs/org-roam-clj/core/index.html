@@ -427,7 +427,7 @@
   <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">cli-args</span> <span class="p">(</span><span class="nf">parse-opts</span> <span class="nv">args</span> <span class="nv">cli-options</span><span class="p">)]</span>
     <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">get-in</span> <span class="nv">cli-args</span> <span class="p">[</span><span class="ss">:options</span> <span class="ss">:help</span><span class="p">])</span>
       <span class="p">(</span><span class="nb">println </span><span class="p">(</span><span class="ss">:summary</span> <span class="nv">cli-args</span><span class="p">))</span>
-      <span class="p">(</span><span class="nf">case</span> <span class="p">(</span><span class="ss">:task</span> <span class="nv">cli-args</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf">case</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">cli-args</span> <span class="p">[</span><span class="ss">:options</span> <span class="ss">:task</span><span class="p">])</span>
         <span class="ss">:create-tags</span> <span class="p">(</span><span class="nf">org-roam-clj.tags/create-tags</span><span class="p">)</span>
         <span class="ss">:clear-tags</span> <span class="p">(</span><span class="nf">org-roam-clj.tags/clear-tags</span><span class="p">)</span>
         <span class="ss">:markdown</span> <span class="p">(</span><span class="nf">org-roam-clj.markdown/convert-org-files</span><span class="p">)</span>

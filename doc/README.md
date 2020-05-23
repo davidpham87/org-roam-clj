@@ -21,7 +21,7 @@ headlines. A typical file will look as the following
 #+TITLE: A good title
 #+OPTIONS: toc:nil
 #+ROAM_ALIAS: title the-title good-title
-#+TAGS: title how-to-write-titles
+#+ROAM_TAGS: title how-to-write-titles
 
 * A good title
 
