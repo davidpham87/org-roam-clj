@@ -6,7 +6,7 @@
    [clojure.string :as str]
    [org-roam-clj.db]
    [org-roam-clj.async :refer (master-coordinator log-tasks worker-chan finished-tasks)]
-   [org-roam-clj.utils :refer (now-formatted replace-extension)]))
+   [org-roam-clj.utils :refer (sha1-str now-formatted replace-extension)]))
 
 
 (defn pandoc-cli-args [m]
@@ -58,10 +58,19 @@
 (defn worker-pool [n log-chan]
   (mapv (fn [_] (worker-chan work log-chan)) (range n)))
 
+(defn modified-files [fs]
+  (let [files-hashes (->> (org-roam-clj.db/files-hashes)
+                          (reduce #(assoc %1 (:file %2) (:hash %2)) {}))]
+    (filter #(not= (get files-hashes (str (.getCanonicalPath %)))
+                   (sha1-str (slurp (str %))))
+            fs)))
+
 (defn convert-org-files
   ([] (convert-org-files "."))
   ([root]
-   (let [fs (filter #(str/ends-with? % ".org") (file-seq (io/file root)))
+   (let [fs (->> (file-seq (io/file root))
+                 (filter #(str/ends-with? % ".org"))
+                 modified-files)
          size 16
          master-chan (chan size)
          log-chan (chan size)
@@ -107,3 +116,9 @@
   (println "Starting to convert org-files")
   (convert-org-files)
   (println "End of script"))
+
+
+(comment
+  (tap> (org-roam-clj.db/files-hashes))
+
+)

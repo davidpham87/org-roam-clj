@@ -51,12 +51,16 @@
        (map #(str "- " %))
        (str/join "\n" )))
 
+
+;; TODO: check if this works.
 (defn get-tags [x]
-  (when-let [tags (get-in x [:attribs :tags])]
+  (when-let [tags (get-in x [:attribs :roam-tags])]
     (str/split tags #"\s+")))
 
 (def titles (memoize org-roam-clj.db/titles))
 (def backlinks (memoize org-roam-clj.db/backlinks))
+(def tags (memoize org-roam-clj.db/tags))
+
 (def filename->title
   (memoize
    (fn []
@@ -75,7 +79,7 @@
       first
       (as-> $ (assoc $ :alias (-> $ :content first)))))
 
-(defn file->link [file org-data tags->filename]
+(defn file->link [file tags->filename]
   (let [canonical-path (fn [file] (.getCanonicalPath file))
         file (canonical-path file)
         query-tags (fn [tags] (for [t (sort tags) :when t] [t (get tags->filename t)]))
@@ -89,7 +93,10 @@
                (apply concat)
                (into #{})
                (sort-by #(->> % parse-org-link :alias str/lower-case))))]
-    (->> org-data get-tags query-tags org-links)))
+    (->> (str file)
+         (get (tags))
+         query-tags
+         org-links)))
 
 (defn file->backlink [file]
   (let [canonical-path (fn [filename] (.getCanonicalPath (io/file filename)))]
@@ -124,7 +131,7 @@
   (let [file (io/file f)
         org-data (org/parse file)
         link (->> (file->backlink (.getCanonicalPath file))
-                  (into (file->link file org-data tags->filename))
+                  (into (file->link file tags->filename))
                   (into #{})
                   (sort-by #(-> % parse-org-link :alias str/lower-case)))
         text-data (if (seq link) (append-generated-links file link org-data) {})]
@@ -189,10 +196,10 @@
   ;; overwrite generated-links (spit :append)
 
 
-  (let [file (io/file "./index.org")
+  (let [file (io/file "./todo.org")
         org-data (org/parse file)
-        link (file->link file org-data tags->filename)]
-    (clojure.pprint/pprint link)
+        link (file->link file tags->filename)]
+    (tap> (vec link))
     #_(when (seq link)
       (def x (append-generated-links file link org-data))))
 
@@ -210,5 +217,7 @@
   (conj #{1 2} 3)
 
   ;; TODO(dph) add the back links using the links table
+  ;; (clojure.core/require '[shadow.cljs.devtools.server :as server])
+  ;; (server/start!)
 
   )

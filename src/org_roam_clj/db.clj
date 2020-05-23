@@ -57,6 +57,12 @@
        (map #(reduce (fn [m k] (update m k expand-home)) % [:to :from]))
        (group-by :to)))
 
+(defn tags []
+  (->> (execute-query! ["select file, tags from tags"])
+       (map parse-lisp-record)
+       (map #(update % :file expand-home))
+       (reduce (fn [m {:keys [file tags]}] (assoc m file tags)) {})))
+
 (defn create-files-clj []
   (try
     (execute-query!
@@ -85,6 +91,12 @@ hash vacharc(40)
    :where [:= :file filename]
    :limit 1})
 
+(defn files-query
+  "All files and their hashes."
+  []
+  {:select [:*] :from [:files_clj]})
+
+
 (defn file-exists? [filename]
   (pos? (count (execute-query! (sql/format (file-query filename))))))
 
@@ -111,6 +123,8 @@ hash vacharc(40)
 (defn build-files-hash [root]
   (doseq [f (gather-org-files root)]
     (store-hash-content! f)))
+
+(defn files-hashes [] (-> (files-query) sql/format execute-query!))
 
 #_(defn updated-files [files]
   {:select [:*]
