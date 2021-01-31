@@ -34,7 +34,8 @@
                         (str/replace  #"^\./" ""))
         p (pandoc filename
                     {:t :gfm
-                     :o (->> (str "docs-md/" md-filename))})
+                     :o (->> (str "docs-md/" md-filename))
+                     :lua-filter "org_to_html.lua"})
         status (.waitFor p)]
     (println (now-formatted) "Exit status for pandoc (" filename "): " status)))
 
@@ -86,7 +87,7 @@
      (master-coordinator master-chan log-chan (worker-pool size log-chan))
 
      (doseq [org-file fs]
-       (a/>!! master-chan [:orgmk org-file]))
+       (a/>!! master-chan [:pandoc org-file]))
 
      (while (and (not= (count @terminated-tasks) (count fs))
                  (not= @elapsed-time 3600))

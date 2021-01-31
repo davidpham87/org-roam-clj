@@ -44,13 +44,15 @@
        (enclose  "[" "]"))))
 
 (defn ->file-link [root filename alias]
-  (link (str "file:" (->relative-path root filename)) alias))
+  (let [s (->relative-path root filename)]
+    (link (str "file:" s) (or alias s))))
 
-(defn itemize [coll]
-  (->> coll
-       (map #(str "- " %))
-       (str/join "\n" )))
-
+(defn itemize
+  ([coll] (itemize coll 3))
+  ([coll indent]
+   (->> coll
+        (map #(str (str/join "" (repeat indent " ")) "- " %))
+        (str/join "\n" ))))
 
 ;; TODO: check if this works.
 (defn get-tags [x]
@@ -64,7 +66,10 @@
 (def filename->title
   (memoize
    (fn []
-     (reduce #(assoc %1 (:file %2) (first (:titles %2))) {} (titles)))))
+     (->> (group-by :file (titles))
+          vals
+          (mapv first)
+          (reduce #(assoc %1 (:file %2) (:title %2)) {})))))
 
 (def tags->filename
   (let [xf (comp
@@ -98,16 +103,18 @@
          query-tags
          org-links)))
 
-(defn file->backlink [file]
-  (let [canonical-path (fn [filename] (.getCanonicalPath (io/file filename)))]
-    (->> (get (backlinks) (str file))
-         (map :from)
-         (remove #{file})
-         (map #(vector % ((filename->title) %)))
-         (into #{})
-         (sort-by #(-> % second (or "") str/lower-case))
-         (mapv #(->file-link (canonical-path (. (io/file file) getParentFile))
-                             (canonical-path (io/file (first %))) (second %))))))
+(defn file->backlink
+  ([file] (file->backlink file (backlinks)))
+  ([file backlinks]
+   (let [canonical-path (fn [filename] (.getCanonicalPath (io/file filename)))]
+     (->> (get backlinks (str file))
+          (map :from)
+          (remove #{file})
+          (map #(vector % ((filename->title) %)))
+          (into #{})
+          (sort-by #(-> % second (or "") str/lower-case))
+          (mapv #(->file-link (canonical-path (. (io/file file) getParentFile))
+                              (canonical-path (io/file (first %))) (second %)))))))
 
 (defn append-generated-links
   ([file links] (append-generated-links file links (org/parse file)))
@@ -161,15 +168,14 @@
   ([] (create-tags "."))
   ([root]
    (let [fs (gather-org-files root)]
-     (doseq [f fs] (-> f create-tag save-text!)))
-
-   ))
+     ;; make a filter here for modified files
+     (doseq [f fs] (-> f create-tag save-text!)))))
 
 (comment
 
-  (append-tags (gather-org-files))
-  (clear-tags (gather-org-files))
-
+  (append-tags (gather-org-files "."))
+  (clear-tags ".")
+  (clear-tags)
   (file->backlink "/home/david/Documents/org_files/cards/python.org")
 
   (->relative-path root-location "/home/david/Documents/org_files/cards/clojure.org")

@@ -30,7 +30,7 @@
 (defn expand-home
   "Inspired by this answer https://stackoverflow.com/questions/29585928/how-to-substitute-path-to-home-for."
   [s]
-  (if (.startsWith s "~")
+  (if (.startsWith (or s "") "~")
     (clojure.string/replace-first s "~" (home-directory))
     s))
 
@@ -72,6 +72,13 @@ hash vacharc(40)
 )"])
     (catch org.sqlite.SQLiteException _
       (println "Table files_clj already exists."))))
+
+(defn delete-files-clj []
+  (try
+    (execute-query!
+     ["drop table files_clj"])
+    (catch org.sqlite.SQLiteException _
+      (println "Table files_clj does not exist."))))
 
 (defn insert-file-hash-query [filename content]
   (let [sha1 (sha1-str content)]
@@ -147,6 +154,9 @@ hash vacharc(40)
   (titles)
   (build-files-hash ".")
   (def sql-map {:select [:*] :from [:files]})
+
+  (create-files-clj)
+  (delete-files-clj)
 
   (execute-query! (sql/format sql-map))
   (execute-query! (sql/format sql-map))
