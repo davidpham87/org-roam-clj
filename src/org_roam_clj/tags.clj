@@ -63,6 +63,12 @@
 (def backlinks (memoize org-roam-clj.db/backlinks))
 (def tags (memoize org-roam-clj.db/tags))
 
+(comment
+  (titles)
+  (tags)
+  (backlinks)
+  )
+
 (def filename->title
   (memoize
    (fn []
@@ -73,8 +79,8 @@
 
 (def tags->filename
   (let [xf (comp
-            (map #(update % :titles (fn [s] (mapv str/lower-case s))))
-            (map #(zipmap (:titles %) (repeat [(:file %)]))))]
+            (map #(update % :title str/lower-case))
+            (map #(-> {(:title %) [(:file %)]})))]
     (transduce xf (fn ([m] m) ([x y] (merge-with into x y))) {} (titles))))
 
 (defn parse-org-link [s]
@@ -177,6 +183,7 @@
   (clear-tags ".")
   (clear-tags)
   (file->backlink "/home/david/Documents/org_files/cards/python.org")
+  (file->backlink "/home/david/Documents/org_files/cards/20200430154647-shadow_cljs.org")
 
   (->relative-path root-location "/home/david/Documents/org_files/cards/clojure.org")
   (println (:text (create-tag "/home/david/Documents/org_files/decks/clojure.org")))
