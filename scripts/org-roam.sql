@@ -1,15 +1,22 @@
 .tables
 .headers on
+.mode columns
+
+
+select * from files_clj
+limit 20;
+
 
 select * from files
-limit 10;
+limit 20;
+
 
 select * from links
-limit 10;
+limit 20;
 
 select * from refs
 limit 5;
 
 select * from titles;
 
-select "from", "to", type, properties from links;
+select "source", "dest", type, properties from links;

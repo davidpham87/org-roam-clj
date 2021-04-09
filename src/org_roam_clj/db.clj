@@ -52,10 +52,10 @@
                    (map #(update % :file expand-home))) xs)))
 
 (defn backlinks []
-  (->> (execute-query! ["select \"to\", \"from\" from links"])
+  (->> (execute-query! ["select \"dest\", \"source\" from links"])
        (map parse-lisp-record)
-       (map #(reduce (fn [m k] (update m k expand-home)) % [:to :from]))
-       (group-by :to)))
+       (map #(reduce (fn [m k] (update m k expand-home)) % [:dest :source]))
+       (group-by :dest)))
 
 (defn tags []
   (->> (execute-query! ["select file, tags from tags"])

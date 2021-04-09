@@ -108,7 +108,7 @@
   ([file backlinks]
    (let [canonical-path (fn [filename] (.getCanonicalPath (io/file filename)))]
      (->> (get backlinks (str file))
-          (map :from)
+          (map :source)
           (remove #{file})
           (map #(vector % ((filename->title) %)))
           (into #{})
