@@ -56,8 +56,8 @@
 
 ;; TODO: check if this works.
 (defn get-tags [x]
-  (when-let [tags (get-in x [:attribs :roam-tags])]
-    (str/split tags #"\s+")))
+  (when-let [tags (get-in x [:attribs :filetags])]
+    (str/split tags #":")))
 
 (def titles (memoize org-roam-clj.db/titles))
 (def backlinks (memoize org-roam-clj.db/backlinks))
