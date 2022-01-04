@@ -46,7 +46,7 @@
    {} m))
 
 (defn titles []
-  (let [xs (execute-query! ["select * from titles"])]
+  (let [xs (execute-query! ["select * from files"])]
     (into [] (comp (filter #(str/ends-with? (:file %) ".org\"" ))
                    (map parse-lisp-record)
                    (map #(update % :file expand-home))) xs)))
@@ -141,6 +141,15 @@ hash vacharc(40)
 (comment
   (def ds (data-resource))
   (def ts (titles))
+
+  (execute-query! ["select * from citations limit 10"])
+  (execute-query! ["select * from files limit 10"])
+  (execute-query! ["select * from nodes limit 10"])
+  (execute-query! ["select * from links limit 10"])
+  (execute-query! ["select * from aliases limit 10"])
+
+
+  (execute-query! ["tables"])
 
   (->> titles
        (map clojure.edn/read-string)
