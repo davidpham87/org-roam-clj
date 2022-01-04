@@ -61,8 +61,7 @@ join nodes on nodes.id == links.source"]
    (group-by :dest)))
 
 (comment
-  (backlinks)
-  )
+  (backlinks))
 
 (defn tags []
   (->> ["select node_id, tag, file from tags join nodes on nodes.id == tags.node_id"]
@@ -70,6 +69,18 @@ join nodes on nodes.id == links.source"]
        (map parse-lisp-record)
        (map #(update % :file expand-home))
        (reduce (fn [m {:keys [file tag]}] (update m file (fnil conj []) tag)) {})))
+
+(defn aliases []
+  (->> ["select file, alias, file from aliases join nodes on nodes.id == aliases.node_id"]
+       execute-query!
+       (map parse-lisp-record)
+       (map #(update % :file expand-home))
+       (reduce (fn [m {:keys [file alias]}] (update m alias (fnil conj []) file)) {})))
+
+(comment
+  (tags)
+  (aliases)
+  )
 
 (defn create-files-clj []
   (try

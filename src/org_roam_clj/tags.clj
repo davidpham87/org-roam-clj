@@ -28,7 +28,7 @@
            coll (case (:type node) :headline (conj coll (:text node)) coll)]
        (recur (clojure.zip/next z) coll)))))
 
-(defn contains-genearted-links? [org-data]
+(defn contains-generated-links? [org-data]
   (let [z (clojure.zip/zipper (some-fn map? vector?) seq (fn [_ c] c) org-data)]
     (contains? (get-headlines z) header-content)))
 
@@ -60,6 +60,7 @@
     (str/split tags #":")))
 
 (def titles (memoize org-roam-clj.db/titles))
+(def aliases (memoize org-roam-clj.db/aliases))
 (def backlinks (memoize org-roam-clj.db/backlinks))
 (def tags (memoize org-roam-clj.db/tags))
 
@@ -81,8 +82,12 @@
 (def tags->filename
   (let [xf (comp
             (map #(update % :title str/lower-case))
-            (map #(-> {(:title %) [(:file %)]})))]
-    (transduce xf (fn ([m] m) ([x y] (merge-with into x y))) {} (titles))))
+            (map #(-> {(:title %) [(:file %)]})))
+        m (merge (aliases) (transduce xf (fn ([m] m) ([x y] (merge-with into x y))) {} (titles)))]
+    (reduce-kv (fn [acc k v]
+                 (assoc acc
+                        (str/lower-case (str/replace k #"_" "-")) v
+                        (str/lower-case (str/replace k #"-" "_")) v)) m m)))
 
 (defn parse-org-link [s]
   (-> (orgmode.inline/make-elem
@@ -128,7 +133,9 @@
   ([file links org-data]
    (let [org-links (str "\n" (itemize links))
          headline (->org-header header-content 2)]
-     (if (contains-genearted-links? org-data)
+     (println (contains-generated-links? org-data))
+     (println file)
+     (if (contains-generated-links? org-data)
        (with-open [reader (io/reader (str file))]
          (let [line-reader (line-seq reader)
                [content-before content-after] (-> #(not (str/starts-with? % headline))
