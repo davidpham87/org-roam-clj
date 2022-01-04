@@ -67,6 +67,7 @@
   (titles)
   (tags)
   (backlinks)
+  (filename->title)
   )
 
 (def filename->title

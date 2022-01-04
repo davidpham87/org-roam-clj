@@ -52,16 +52,24 @@
                    (map #(update % :file expand-home))) xs)))
 
 (defn backlinks []
-  (->> (execute-query! ["select \"dest\", \"source\" from links"])
-       (map parse-lisp-record)
-       (map #(reduce (fn [m k] (update m k expand-home)) % [:dest :source]))
-       (group-by :dest)))
+  (->>
+   ["select \"dest\", file as \"source\" from links
+join nodes on nodes.id == links.source"]
+   execute-query!
+   (map parse-lisp-record)
+   (map #(reduce (fn [m k] (update m k expand-home)) % [:dest :source]))
+   (group-by :dest)))
+
+(comment
+  (backlinks)
+  )
 
 (defn tags []
-  (->> (execute-query! ["select file, tags from tags"])
+  (->> ["select node_id, tag, file from tags join nodes on nodes.id == tags.node_id"]
+       execute-query!
        (map parse-lisp-record)
        (map #(update % :file expand-home))
-       (reduce (fn [m {:keys [file tags]}] (assoc m file tags)) {})))
+       (reduce (fn [m {:keys [file tag]}] (update m file (fnil conj []) tag)) {})))
 
 (defn create-files-clj []
   (try
@@ -147,8 +155,9 @@ hash vacharc(40)
   (execute-query! ["select * from nodes limit 10"])
   (execute-query! ["select * from links limit 10"])
   (execute-query! ["select * from aliases limit 10"])
+  (execute-query! ["select * from tags limit 10"])
 
-
+  (execute-query! ["select node_id, tag, file from tags join nodes on nodes.id == tags.node_id"])
   (execute-query! ["tables"])
 
   (->> titles

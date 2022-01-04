@@ -1,7 +1,6 @@
 {:path ["src"]
  :deps
- {orgmode/orgmode {:git/url "https://github.com/davidpham87/orgmode"
-                   :sha "142930a4be0defbdb8b5ebe35c089c7e62c87e7d"}
+ {orgmode/orgmode {:local/root "../orgmode"}
   ;; materiala {:git/url "https://github.com/davidpham87/materiala/"
   ;;            :sha "b4f85c96b1bf9b96b47714e751b6bff6196533bb"}
   materiala/materiala {:local/root "../materiala"}
